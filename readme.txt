@@ -12,8 +12,11 @@ Reserviaの予約システムから口コミを取得し表示するプラグイ
 
 == Changelog ==
 
-= 1.1.2 =
+= v1.1.2 =
+* 細かな調整とreadme.txtの調整
+
+= v1.1.1 =
 * 細かな調整
 
-= 1.1.0 =
+= v1.1.0 =
 * Plugin Update Checkerを4.9に更新
