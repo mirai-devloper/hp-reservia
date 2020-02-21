@@ -1,7 +1,7 @@
 # Reservia Reviews for HairsPress
-_/ Requires as least: 4.7
-_/ Tested up to: 5.3
-_/ Requires PHP: 5.6.4
+- Requires as least: 4.7
+- Tested up to: 5.3
+- Requires PHP: 5.6.4
 
 ## Description
 
