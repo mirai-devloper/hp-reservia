@@ -1,0 +1,19 @@
+.hp-options-wrapper {
+	/* background-color: #f00; */
+}
+.hp-option-submit {
+	position: fixed;
+	bottom: 0;
+	z-index: 10;
+	width: 100%;
+	margin-left: -22px;
+	background-color: #e8e8e8;
+	border-top: 1px solid #aaa;
+}
+.hp-option-submit .submit {
+	margin: 0;
+	padding: 15px;
+}
+#wpfooter {
+	padding-bottom: 70px;
+}

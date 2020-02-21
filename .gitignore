@@ -1,0 +1,25 @@
+# temp files from editors
+*~
+*.bak
+*.sublime-workspace
+.git
+.DS_Store
+.buildpath
+.project
+.settings
+*.tmproj
+build
+.idea
+npm-debug.log
+nbproject/
+.phpintel/
+.sass-cache/
+.module-cache/
+node_modules/
+
+# hidden files created by Windows
+Thumbs.db
+desktop.ini
+
+prepros.cfg
+prepros-6.config

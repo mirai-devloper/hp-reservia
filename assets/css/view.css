@@ -1,0 +1,290 @@
+.review-wrapper {
+  position: relative;
+  max-width: 960px;
+  margin: 64px auto; }
+  .review-wrapper .rating {
+    position: relative;
+    display: inline-block;
+    overflow: hidden; }
+    .review-wrapper .rating .star-box {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+      -ms-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 180%;
+      line-height: 1; }
+    .review-wrapper .rating .star {
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-family: FontAwesome;
+      font-style: normal;
+      color: #f0e056;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale; }
+    .review-wrapper .rating .star-back {
+      position: relative;
+      z-index: 1; }
+      .review-wrapper .rating .star-back .star {
+        color: #eada50; }
+        .review-wrapper .rating .star-back .star:before {
+          content: "\f006"; }
+    .review-wrapper .rating .star-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 5;
+      width: 0;
+      opacity: 0.8; }
+      .review-wrapper .rating .star-top .star:before {
+        content: "\f005"; }
+
+.review-header {
+  position: relative;
+  margin-top: 64px;
+  margin-bottom: 64px;
+  padding: 30px;
+  text-align: center;
+  background-color: #f6f6f6; }
+  .review-header .rating-area {
+    margin-bottom: 25px; }
+  .review-header .sum {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 220%;
+    color: #e76b6b; }
+  .review-header .count {
+    display: inline-block; }
+    .review-header .count:before {
+      content: "("; }
+    .review-header .count:after {
+      content: ")"; }
+  .review-header .review-salon-comment {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 20px; }
+    .review-header .review-salon-comment > p {
+      margin: 0;
+      color: #d87349; }
+  @media (max-width: 640px) {
+    .review-header {
+      margin-left: -15px;
+      margin-right: -15px; }
+      .review-header .rating-area .rating .star-box {
+        font-size: 100%; }
+      .review-header .rating-area .sum {
+        font-size: 120%; }
+      .review-header .review-salon-comment {
+        margin-left: -15px;
+        margin-right: -15px; } }
+
+.review-list {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+  .review-list > li + li {
+    margin-top: 64px; }
+
+.review-item-header {
+  position: relative;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ccc; }
+  .review-item-header > div {
+    display: inline-block;
+    vertical-align: middle; }
+  .review-item-header .avater {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px; }
+    .review-item-header .avater > img {
+      max-width: 100%;
+      height: auto; }
+  .review-item-header .rating {
+    margin-right: 5px; }
+    .review-item-header .rating .star-box {
+      font-size: 100%; }
+      @media (min-width: 641px) {
+        .review-item-header .rating .star-box {
+          font-size: 140%; } }
+  .review-item-header .rating-sum {
+    font-weight: bold;
+    font-size: 140%;
+    color: #e76b6b; }
+    @media (min-width: 641px) {
+      .review-item-header .rating-sum {
+        font-size: 200%; } }
+  .review-item-header .btn-reserve {
+    float: right;
+    margin-top: 8px; }
+    @media (min-width: 641px) {
+      .review-item-header .btn-reserve {
+        margin-top: 8px; } }
+
+.review-item-body {
+  padding: 25px 0; }
+  .review-item-body > p {
+    margin: 0; }
+  @media (min-width: 641px) {
+    .review-item-body {
+      margin-left: 40px;
+      margin-right: 40px; } }
+
+@media (min-width: 641px) {
+  .review-item-footer {
+    margin-left: 40px;
+    margin-right: 40px; } }
+
+.review-item-footer > div {
+  position: relative;
+  display: inline-block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 8px; }
+  @media (max-width: 640px) {
+    .review-item-footer > div {
+      padding-left: 90px; } }
+  .review-item-footer > div > span {
+    display: inline-block; }
+
+.review-item-footer .tag {
+  display: inline-block;
+  padding: 3px 6px;
+  line-height: 1;
+  font-size: 94%;
+  border: 1px solid #d8d8d8; }
+  @media (max-width: 640px) {
+    .review-item-footer .tag {
+      position: absolute;
+      left: 0;
+      display: block;
+      width: 80px;
+      text-align: center; } }
+
+.review-item-footer .sex {
+  color: #777; }
+  .review-item-footer .sex:before {
+    content: "("; }
+  .review-item-footer .sex:after {
+    content: ")"; }
+
+.review-reply {
+  position: relative;
+  margin-top: 25px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px; }
+  @media (min-width: 641px) {
+    .review-reply {
+      margin-left: 40px;
+      margin-right: 40px; } }
+  .review-reply:before, .review-reply:after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    border: 10px solid transparent; }
+  .review-reply:before {
+    left: 25px;
+    border-bottom-color: #ddd; }
+  .review-reply:after {
+    left: 27px;
+    border-width: 8px;
+    border-bottom-color: #fff; }
+  .review-reply .review-staff-header {
+    position: relative; }
+    .review-reply .review-staff-header > div {
+      display: inline-block;
+      vertical-align: middle; }
+  .review-reply .review-staff-avater {
+    max-width: 80px;
+    margin-right: 10px; }
+    .review-reply .review-staff-avater img {
+      max-width: 100%;
+      height: auto; }
+  .review-reply .review-staff-info > span {
+    display: block; }
+  .review-reply .review-staff-info .name {
+    font-size: 112%; }
+  .review-reply .review-staff-body {
+    margin-top: 25px; }
+    .review-reply .review-staff-body > p {
+      margin: 0; }
+
+.review-pagination {
+  position: relative;
+  margin-top: 64px;
+  margin-bottom: 64px;
+  text-align: center; }
+  @media (max-width: 640px) {
+    .review-pagination {
+      margin-left: -15px;
+      margin-right: -15px; } }
+  .review-pagination .pagination {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+    .review-pagination .pagination > li + li {
+      margin-left: -1px; }
+    .review-pagination .pagination > li:first-child > a,
+    .review-pagination .pagination > li:first-child > span {
+      border-radius: 4px 0 0 4px; }
+    .review-pagination .pagination > li:last-child > a,
+    .review-pagination .pagination > li:last-child > span {
+      border-radius: 0 4px 4px 0; }
+    .review-pagination .pagination > li > a,
+    .review-pagination .pagination > li > span {
+      display: block;
+      min-width: 30px;
+      height: 34px;
+      padding: 0 10px;
+      line-height: 34px;
+      font-size: 100%;
+      text-align: center;
+      vertical-align: baseline;
+      border: 1px solid #e8e8e8;
+      border-radius: 0;
+      box-sizing: border-box; }
+      .review-pagination .pagination > li > a.prev, .review-pagination .pagination > li > a.next,
+      .review-pagination .pagination > li > span.prev,
+      .review-pagination .pagination > li > span.next {
+        width: auto;
+        margin-left: 0;
+        margin-right: 0;
+        vertical-align: baseline; }
+        .review-pagination .pagination > li > a.prev:before, .review-pagination .pagination > li > a.prev:after, .review-pagination .pagination > li > a.next:before, .review-pagination .pagination > li > a.next:after,
+        .review-pagination .pagination > li > span.prev:before,
+        .review-pagination .pagination > li > span.prev:after,
+        .review-pagination .pagination > li > span.next:before,
+        .review-pagination .pagination > li > span.next:after {
+          font-family: FontAwesome, sans-serif; }
+      .review-pagination .pagination > li > a.prev:before,
+      .review-pagination .pagination > li > span.prev:before {
+        content: "\f104";
+        margin-right: 8px; }
+      .review-pagination .pagination > li > a.next:after,
+      .review-pagination .pagination > li > span.next:after {
+        content: "\f105";
+        margin-left: 8px; }
+    .review-pagination .pagination > li > .active,
+    .review-pagination .pagination > li > .current {
+      width: auto;
+      margin: 0;
+      vertical-align: baseline; }
