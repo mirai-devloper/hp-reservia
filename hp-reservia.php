@@ -4,7 +4,7 @@ Plugin Name: Reservia ReViews for HairsPress
 Plugin URI: https://github.com/nullpon16tera/hp-reservia
 Description: Reservia API on HairsPress. Reservia reviews page.
 Author: MIRAI
-Version: 1.1.12
+Version: 1.1.13
 Author URI: https://mi-rai.co.jp/
 */
 
