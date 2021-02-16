@@ -7,19 +7,33 @@ Author: MIRAI
 Version: 1.1.12
 Author URI: https://mi-rai.co.jp/
 */
-require __DIR__.'/plugin-update-checker/plugin-update-checker.php';
 
-$hpReserviaChecker = Puc_V4_Factory::buildUpdateChecker(
-	// 'https://mi-rai.co.jp/wp-update-server/?action=get_metadata&slug=hp-reservia',
-	'https://github.com/nullpon16tera/hp-reservia',
-  // 'https://github.com/mirai-devloper/hp-reservia',
-	__FILE__,
-	'hp-reservia'
-);
+function getHpReserviaToken() {
+  $response = false;
+  if (false === ($response = get_transient('hpreservia_token'))) {
+    try {
+      $response = file_get_contents('https://hairspress.com/hp-reservia.txt');
+      set_transient('hpreservia_token', $response, 24 * HOUR_IN_SECONDS);
+    } catch (\Throwable $th) {
+      throw $th;
+    }
+  }
+  return $response;
+}
 
-$hpReserviaChecker->setAuthentication('5d59b3eaaf862e5a9a02bf4dbdb1976c1b1d58c5');
-// $hpReserviaChecker->setBranch('master');
-$hpReserviaChecker->getVcsApi()->enableReleaseAssets();
+if (is_admin()) {
+  if ($token = getHpReserviaToken() and $token) {
+    require __DIR__.'/plugin-update-checker/plugin-update-checker.php';
+    $hpReserviaChecker = Puc_V4_Factory::buildUpdateChecker(
+      'https://github.com/nullpon16tera/hp-reservia',
+      // 'https://github.com/mirai-devloper/hp-reservia',
+      __FILE__,
+      'hp-reservia'
+    );
+    $hpReserviaChecker->setAuthentication($token);
+    $hpReserviaChecker->getVcsApi()->enableReleaseAssets();
+  }
+}
 
 class HP_Reservia
 {
