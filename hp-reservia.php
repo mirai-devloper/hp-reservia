@@ -4,7 +4,7 @@ Plugin Name: Reservia ReViews for HairsPress
 Plugin URI: https://github.com/nullpon16tera/hp-reservia
 Description: Reservia API on HairsPress. Reservia reviews page.
 Author: MIRAI
-Version: 1.1.17
+Version: 1.1.18
 Author URI: https://mi-rai.co.jp/
 */
 
@@ -270,13 +270,19 @@ class HP_Reservia
 			'access_token' => md5($datetime.$this->application_seed),
 			'datetime' => $datetime,
 			'page_number' => 1,
+      'page_size' => 10
 		);
 
 		if ( ! empty($this->get_shop_id()))
 			$request['shop_id'] = $this->get_shop_id();
 
-		if ( ! empty($this->options['reservia_review_page_number']))
-			$request['page_size'] = $this->options['reservia_review_page_number'];
+    if ( ! empty($this->options['reservia_review_page_number'])) {
+      $request['page_size'] = (int) $this->options['reservia_review_page_number'];
+    } elseif (isset($_GET['page_size']) and !empty($_GET['page_size']) and ctype_digit($_GET['page_size'])) {
+      $request['page_size'] = (int) $this->h($_GET['page_size']);
+    } else {
+      $request['page_size'] = 10;
+    }
 
 		if (isset($_GET['page_number']) and ! empty($_GET['page_number']) and ctype_digit($_GET['page_number']))
 		{
@@ -319,38 +325,44 @@ class HP_Reservia
 	public function do_review()
 	{
 
-		$reservia = $this->reservia_remote_post('/review/list');
+		// $reservia = $this->reservia_remote_post('/review/list');
 
 		// 接続できなかった場合
-		if ($reservia === false)
-			return '<p class="alert alert-danger" role="alert">Reserviaへの接続が出来ませんでした。<br>エラーコード：0101</p>';
+		// if ($reservia === false)
+		// 	return '<p class="alert alert-danger" role="alert">Reserviaへの接続が出来ませんでした。<br>エラーコード：0101</p>';
 
-		if (isset($reservia->status) and $reservia->status === 2)
-			return '<p class="alert alert-danger" role="alert">'.$reservia->error_message.'<br>エラーコード：'.$reservia->error_code.'</p>';
+		// if (isset($reservia->status) and $reservia->status === 2)
+		// 	return '<p class="alert alert-danger" role="alert">'.$reservia->error_message.'<br>エラーコード：'.$reservia->error_code.'</p>';
 
-		// 総合評価の平均値
-		if ($review_evaluation = $reservia->evaluation_count)
-		{
-			$rating = $this->evaluation($review_evaluation);
-		}
+		// // 総合評価の平均値
+		// if ($review_evaluation = $reservia->evaluation_count)
+		// {
+		// 	$rating = $this->evaluation($review_evaluation);
+		// }
 
 
 
 		// Viewへ変数を渡すための配列
 		$params = array();
 
-		$params['reservia'] = $reservia;
+    if ($options = get_option($this->option_name)) {
+      $params['page_size'] = $options['reservia_review_page_number'];
+    } else {
+      $params['page_size'] = 10;
+    }
 
-		if (isset($rating))
-			$params['rating'] = $rating;
+		// $params['reservia'] = $reservia;
 
-		if (isset($reservia->reviews))
-			$params['reviews'] = $reservia->reviews;
+		// if (isset($rating))
+		// 	$params['rating'] = $rating;
 
-		$params['pagination'] = $this->pagination($reservia->number_of_pages, $reservia->page_number);
+		// if (isset($reservia->reviews))
+		// 	$params['reviews'] = $reservia->reviews;
+
+		// $params['pagination'] = $this->pagination($reservia->number_of_pages, $reservia->page_number);
 
 		// Viewへ出力
-		return $this->template('view', $params);
+		return $this->template('vue-type', $params);
 	}
 
 	public function pagination($limit, $page, $disp = 5)
@@ -450,6 +462,10 @@ class HP_Reservia
 	{
 		return $this->asset_path().'js/'.$file;
 	}
+
+  public function img_url($file) {
+    return $this->asset_path().'img/'.$file;
+  }
 
 	public function img($file, $attr = array())
 	{
@@ -613,6 +629,20 @@ class HP_Reservia
 		}
 	}
 
+  public function rest_data()
+  {
+    $reservia = $this->reservia_remote_post('/review/list');
+    return $reservia;
+  }
+
+  public function add_rest_endpoint()
+  {
+    register_rest_route('api/reservia', '/reviews', array(
+      'methods' => 'GET',
+      'callback' => array($this, 'rest_data')
+    ));
+  }
+
 	/**
 	 * Initialize option page
 	 *
@@ -624,6 +654,8 @@ class HP_Reservia
 		add_action('admin_enqueue_scripts', array($this, 'admin_enqueue'));
 		add_action('admin_menu', array($this, 'add_option_page'));
 		add_action('admin_init', array($this, 'page_init'));
+
+    add_action('rest_api_init', array($this, 'add_rest_endpoint'));
 
 		// var_dump();
 		add_action('wp', array($this, 'view_asset_load'));

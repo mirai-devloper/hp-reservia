@@ -387,6 +387,7 @@ $yellow: #f0e056;
       }
       > .active,
       > .current {
+        pointer-events: none;
         width: auto;
         // height: auto;
         margin: 0;
