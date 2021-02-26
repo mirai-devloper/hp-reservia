@@ -60,7 +60,7 @@
               </div>
             </div>
 
-            <div v-if="item.response_comment" class="review-reply">
+            <div v-if="item.response_staff_id" class="review-reply">
               <div class="review-staff-header">
                 <div class="review-staff-avater">
                   <img :src="item.response_staff_profile_image_url" alt="">
