@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Reservia ReViews for HairsPress
-Plugin URI: https://github.com/nullpon16tera/hp-reservia
+Plugin URI: https://github.com/mirai-devloper/hp-reservia
 Description: Reservia API on HairsPress. Reservia reviews page.
 Author: MIRAI
-Version: 1.1.19
+Version: 1.1.20
 Author URI: https://mi-rai.co.jp/
 */
 
@@ -29,8 +29,8 @@ if (is_admin() or wp_doing_ajax() or wp_doing_cron()) {
   if ($token = getHpReserviaToken() and $token) {
     require __DIR__.'/plugin-update-checker/plugin-update-checker.php';
     $hpReserviaChecker = Puc_V4_Factory::buildUpdateChecker(
-      'https://github.com/nullpon16tera/hp-reservia',
-      // 'https://github.com/mirai-devloper/hp-reservia',
+      // 'https://github.com/nullpon16tera/hp-reservia',
+      'https://github.com/mirai-devloper/hp-reservia',
       __FILE__,
       'hp-reservia'
     );
