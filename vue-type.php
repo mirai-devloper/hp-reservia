@@ -1,9 +1,9 @@
 <div id="reserviaReview">
-  <div v-if="review" class="review-wrapper" itemprop="review" itemscope itemtype="http://schema.org/Review">
+  <div v-if="review" class="review-wrapper" itemscope itemtype="http://schema.org/Review">
     <div class="review-header">
-      <div class="rating-area">
+      <div class="rating-area" itemscope itemtype="http://schema.org/AggregateRating">
         <span class="head">総合評価：</span>
-        <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <div class="rating">
           <div class="star-box star-back">
             <i v-for="n in 5" class="star" v-html="star.back"></i>
           </div>
