@@ -12,7 +12,7 @@
           </div>
         </div>
         <span class="sum" itemprop="ratingValue">{{ rating.average }}</span>
-        <span class="count" itemprop="ratingCount">{{ rating.count }}件</span>
+        <span class="count"><span itemprop="ratingCount">{{ rating.count }}</span>件</span>
       </div>
 
       <div class="review-salon-comment">
