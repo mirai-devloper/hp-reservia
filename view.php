@@ -25,7 +25,7 @@
 			<span class="sum" itemprop="ratingValue"><?php echo $rating['average']; ?></span>
 			<?php endif; ?>
 			<?php if (isset($rating['count'])) : ?>
-			<span class="count" itemprop="ratingCount"><?php echo $rating['count']; ?>件</span>
+			<span class="count"><span itemprop="ratingCount"><?php echo $rating['count']; ?></span>件</span>
 			<?php endif; ?>
 		</div>
 		<?php endif; ?>
