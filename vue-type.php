@@ -1,95 +1,99 @@
 <div id="reserviaReview">
-  <div v-if="review" class="review-wrapper" itemscope itemtype="http://schema.org/Review">
-    <div class="review-header">
-      <div class="rating-area" itemscope itemtype="http://schema.org/AggregateRating">
-        <span class="head">総合評価：</span>
-        <div class="rating">
-          <div class="star-box star-back">
-            <i v-for="n in 5" class="star" v-html="star.back"></i>
+  <div itemscope itemtype="http://schema.org/LocalBusiness">
+    <meta itemprop="name" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
+    <div v-if="review" class="review-wrapper" itemprop="review" itemscope itemtype="http://schema.org/Review">
+      <meta itemprop="itemReviewed" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
+      <div class="review-header">
+        <div class="rating-area">
+          <span class="head">総合評価：</span>
+          <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+            <div class="star-box star-back">
+              <i v-for="n in 5" class="star" v-html="star.back"></i>
+            </div>
+            <div class="star-box star-top" data-star="average" :style="sizeEvaluation(rating.average)">
+              <i v-for="n in 5" class="star" v-html="star.top"></i>
+            </div>
           </div>
-          <div class="star-box star-top" data-star="average" :style="sizeEvaluation(rating.average)">
-            <i v-for="n in 5" class="star" v-html="star.top"></i>
-          </div>
+          <span class="sum" itemprop="ratingValue">{{ rating.average }}</span>
+          <span class="count" itemprop="ratingCount">{{ rating.count }}件</span>
         </div>
-        <span class="sum" itemprop="ratingValue">{{ rating.average }}</span>
-        <span class="count"><span itemprop="ratingCount">{{ rating.count }}</span>件</span>
+
+        <div class="review-salon-comment">
+          <p>クチコミの投稿ありがとうございます！いただいたクチコミはサービス向上の参考とさせていただきます。</p>
+        </div>
       </div>
 
-      <div class="review-salon-comment">
-        <p>クチコミの投稿ありがとうございます！いただいたクチコミはサービス向上の参考とさせていただきます。</p>
+      <div class="review-contents">
+        <ul  class="review-list">
+          <li v-for="(item, $index) in reviews" :id="'rev'+item.id" :key="$index">
+            <div class="review-item" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+              <div class="review-item-header">
+                <div class="avater"><img :src="sexAvatar(item.user_sex)" alt=""></div>
+                <div class="rating">
+                  <div class="star-box star-back">
+                      <i v-for="n in 5" v-html="star.back" class="star"></i>
+                  </div>
+                  <div class="star-box star-top" :data-star="item.evaluation" :style="sizeEvaluation(item.evaluation)">
+                      <i v-for="n in 5" v-html="star.top" class="star"></i>
+                  </div>
+                </div>
+                <div class="rating-sum" itemprop="ratingValue">{{ item.evaluation }}</div>
+
+                <a :href="item.reserve_url" class="btn btn-default btn-reserve" target="_blank">Web予約</a>
+              </div>
+
+              <div class="review-item-body" itemprop="reviewBody">
+                <p style="white-space: pre-wrap;word-wrap:break-word;">{{ item.comment }}</p>
+              </div>
+
+              <div class="review-item-footer">
+                <div class="reviewer" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                  <span class="tag">投稿者</span>
+                  <span class="name" itemprop="name">{{ item.user_nickname }}さん</span>
+                  <span class="sex">{{ sexText(item) }}</span>
+
+                </div>
+                <div class="review-posted">
+                  <span class="tag">投稿日時</span>
+                  <time class="date" itemprop="datePublished">{{ dateText(item.review_datetime) }}</time>
+                </div>
+                <div class="review-menu">
+                  <span class="tag">メニュー</span>
+                  <span class="menu-name" data-menuid="menu_id">{{ item.menu_name }}</span>
+                </div>
+              </div>
+
+              <div v-if="item.response_staff_id" class="review-reply">
+                <div class="review-staff-header">
+                  <div class="review-staff-avater">
+                    <img :src="item.response_staff_profile_image_url" alt="">
+                  </div>
+
+                  <div class="review-staff-info" data-staffid="response_staff_id">
+                    <span class="manage">担当者</span>
+                    <span class="name">{{ item.response_staff_name }}</span>
+                  </div>
+                </div>
+
+                <div class="review-staff-body">
+                  <p style="white-space: pre-wrap;word-wrap:break-word;">{{ item.response_comment }}</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!-- <div v-show="loading" class="loader">Loading...</div> -->
+
+        <!-- <nav class="review-pagination">
+          <pagination v-model="page" :records="total" :per-page="10" :options="pager_options" @paginate="pager" @next="pager"></pagination>
+        </nav> -->
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
       </div>
     </div>
-
-    <div class="review-contents">
-      <ul  class="review-list">
-        <li v-for="(item, $index) in reviews" :id="'rev'+item.id" :key="$index">
-          <div class="review-item" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
-            <div class="review-item-header">
-              <div class="avater"><img :src="sexAvatar(item.user_sex)" alt=""></div>
-              <div class="rating">
-                <div class="star-box star-back">
-                    <i v-for="n in 5" v-html="star.back" class="star"></i>
-                </div>
-                <div class="star-box star-top" :data-star="item.evaluation" :style="sizeEvaluation(item.evaluation)">
-                    <i v-for="n in 5" v-html="star.top" class="star"></i>
-                </div>
-              </div>
-              <div class="rating-sum" itemprop="ratingValue">{{ item.evaluation }}</div>
-
-              <a :href="item.reserve_url" class="btn btn-default btn-reserve" target="_blank">Web予約</a>
-            </div>
-
-            <div class="review-item-body" itemprop="reviewBody">
-              <p style="white-space: pre-wrap;word-wrap:break-word;">{{ item.comment }}</p>
-            </div>
-
-            <div class="review-item-footer">
-              <div class="reviewer" itemprop="author" itemscope itemtype="http://schema.org/Person">
-                <span class="tag">投稿者</span>
-                <span class="name" itemprop="name">{{ item.user_nickname }}さん</span>
-                <span class="sex">{{ sexText(item) }}</span>
-
-              </div>
-              <div class="review-posted">
-                <span class="tag">投稿日時</span>
-                <time class="date" itemprop="datePublished">{{ dateText(item.review_datetime) }}</time>
-              </div>
-              <div class="review-menu">
-                <span class="tag">メニュー</span>
-                <span class="menu-name" data-menuid="menu_id">{{ item.menu_name }}</span>
-              </div>
-            </div>
-
-            <div v-if="item.response_staff_id" class="review-reply">
-              <div class="review-staff-header">
-                <div class="review-staff-avater">
-                  <img :src="item.response_staff_profile_image_url" alt="">
-                </div>
-
-                <div class="review-staff-info" data-staffid="response_staff_id">
-                  <span class="manage">担当者</span>
-                  <span class="name">{{ item.response_staff_name }}</span>
-                </div>
-              </div>
-
-              <div class="review-staff-body">
-                <p style="white-space: pre-wrap;word-wrap:break-word;">{{ item.response_comment }}</p>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul>
-      <!-- <div v-show="loading" class="loader">Loading...</div> -->
-
-      <!-- <nav class="review-pagination">
-        <pagination v-model="page" :records="total" :per-page="10" :options="pager_options" @paginate="pager" @next="pager"></pagination>
-      </nav> -->
-      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
-    </div>
-  </div>
-  <div v-else>
-    <div class="text-center">
-      <p>口コミの投稿が見つかりませんでした。</p>
+    <div v-else>
+      <div class="text-center">
+        <p>口コミの投稿が見つかりませんでした。</p>
+      </div>
     </div>
   </div>
 </div>
