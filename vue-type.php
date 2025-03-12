@@ -15,7 +15,7 @@
             </div>
           </div>
           <span class="sum" itemprop="ratingValue">{{ rating.average }}</span>
-          <span class="count" itemprop="ratingCount">{{ rating.count }}件</span>
+          <span class="count"><span itemprop="ratingCount">{{ rating.count }}</span>件</span>
         </div>
 
         <div class="review-salon-comment">
@@ -49,7 +49,7 @@
               <div class="review-item-footer">
                 <div class="reviewer" itemprop="author" itemscope itemtype="http://schema.org/Person">
                   <span class="tag">投稿者</span>
-                  <span class="name" itemprop="name">{{ item.user_nickname }}さん</span>
+                  <span class="name"><span itemprop="name">{{ item.user_nickname }}</span>さん</span>
                   <span class="sex">{{ sexText(item) }}</span>
 
                 </div>
