@@ -1,15 +1,22 @@
+<div id="svgStars" style="display: none;">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <symbol id="svgStarIcon" viewBox="0 0 576 512"><path fill="currentColor" d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"></path></symbol>
+
+    <symbol id="svgStarIcon2" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></symbol>
+  </svg>
+</div>
 <div itemscope itemtype="http://schema.org/LocalBusiness">
   <div class="review-wrapper" itemprop="review" itemscope itemtype="http://schema.org/Review">
     <?php if (isset($reviews) and ! empty($reviews)) : ?>
     <meta itemprop="itemReviewed" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
     <div class="review-header">
       <?php if (isset($rating)) : ?>
-      <div class="rating-area">
+      <div class="rating-area" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
         <span class="head">総合評価：</span>
-        <div class="rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <div class="rating">
           <div class="star-box star-back">
             <?php for ($r = 0; $r < 5; $r++) : ?>
-              <i class="star"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M528.1 171.5L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6zM388.6 312.3l23.7 138.4L288 385.4l-124.3 65.3 23.7-138.4-100.6-98 139-20.2 62.2-126 62.2 126 139 20.2-100.6 98z"></path></svg></i>
+              <i class="star"><svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img"><use xlink:href="#svgStarIcon"></use></svg></i>
             <?php endfor; ?>
 
           </div><?php
@@ -18,7 +25,7 @@
           ?>
           <div class="star-box star-top" data-star="<?= (isset($rating['average'])) ? $rating['average'] : '0'; ?>" <?= $style; ?>>
             <?php for ($i = 0; $i < 5; $i++) : ?>
-              <i class="star"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg></i>
+              <i class="star"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img"><use xlink:href="#svgStarIcon2"></use></svg></i>
             <?php endfor; ?>
 
           </div>
