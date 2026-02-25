@@ -8,10 +8,10 @@
 <div id="reserviaReview">
   <div itemscope itemtype="http://schema.org/LocalBusiness">
     <meta itemprop="name" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
-    <div v-if="review" class="review-wrapper" itemprop="review" itemscope itemtype="http://schema.org/Review">
+    <div v-if="review" class="review-wrapper" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
       <meta itemprop="itemReviewed" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
       <div class="review-header">
-        <div class="rating-area" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <div class="rating-area">
           <span class="head">総合評価：</span>
           <div class="rating">
             <div class="star-box star-back">
@@ -22,6 +22,8 @@
             </div>
           </div>
           <span class="sum" itemprop="ratingValue">{{ rating.average }}</span>
+          <meta itemprop="bestRating" content="5" />
+          <meta itemprop="worstRating" content="1" />
           <span class="count"><span itemprop="ratingCount">{{ rating.count }}</span>件</span>
         </div>
 
@@ -32,11 +34,16 @@
 
       <div class="review-contents">
         <ul  class="review-list">
-          <li v-for="(item, $index) in reviews" :id="'rev'+item.id" :key="$index">
-            <div class="review-item" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+          <li v-for="(item, $index) in reviews" :id="'rev'+item.id" :key="$index" itemprop="review" itemscope itemtype="http://schema.org/Review">
+            <div class="review-item">
+              <meta itemprop="itemReviewed" content="<?php echo esc_attr(get_bloginfo('name')); ?>" />
               <div class="review-item-header">
                 <div class="avater"><img :src="sexAvatar(item.user_sex)" alt=""></div>
-                <div class="rating">
+                <div class="rating" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                  <meta itemprop="ratingValue" :content="item.evaluation" />
+                  <meta itemprop="bestRating" content="5" />
+                  <meta itemprop="worstRating" content="1" />
+
                   <div class="star-box star-back">
                       <i v-for="n in 5" v-html="star.back" class="star"></i>
                   </div>
@@ -44,7 +51,7 @@
                       <i v-for="n in 5" v-html="star.top" class="star"></i>
                   </div>
                 </div>
-                <div class="rating-sum" itemprop="ratingValue">{{ item.evaluation }}</div>
+                <div class="rating-sum">{{ item.evaluation }}</div>
 
                 <a :href="item.reserve_url" class="btn btn-default btn-reserve" target="_blank">Web予約</a>
               </div>
